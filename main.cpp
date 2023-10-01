@@ -18,7 +18,7 @@ public:
     }
 
     Vector(const std::initializer_list<T>& listOfElements) : capacity(listOfElements.size() * 2), size(listOfElements.size()) {
-        data = new T[capacity];
+        data = new T[ capacity ];
         std::size_t i = 0;
         for (const T& element : listOfElements) {
             data[i++] = element;
