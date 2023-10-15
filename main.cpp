@@ -60,6 +60,7 @@ public:
         if( this!= &other ) {
             capacity = other.capacity;
             size = other.size;
+            delete [] data;
             data = new T[capacity];
 
             for( std::size_t i = 0; i < this->size; ++i ) {
@@ -75,6 +76,7 @@ public:
         if( this!= &other ) {
             capacity = other.capacity;
             size = other.size;
+            delete [] data;
             data = other.data;
             other.data = nullptr;
             other.size = 0;
