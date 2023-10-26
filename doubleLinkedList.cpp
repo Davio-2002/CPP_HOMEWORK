@@ -344,6 +344,7 @@ void partitionLinkedList(List<T>& list, const T& x) {
     list = less;
 }
 
+//task 02
 void minorsToCapitals(List<char>& list)
 {
     auto it = list.begin();
@@ -385,14 +386,17 @@ void minorsToCapitals(List<char>& list)
 
 int main()
 {
+    //task 01
     List<int> list { 6, -2, 5, 4, 0, 3 };
     partitionLinkedList(list, 4);
 
     for (const auto& value : list) {
         std::cout << value << " ";
     }
+
     std::cout << std::endl;
 
+    //task 02
     List<char> chList { 'a', 'a', 'b', 'c', 'c', 'c' };
     minorsToCapitals(chList);
 
