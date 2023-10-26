@@ -1,5 +1,5 @@
 #include <iostream>
-#include <algorithm>
+#include <vector>
 
 template<typename T>
 class List {
@@ -315,7 +315,7 @@ public:
 
 };
 
-//task 1
+//task 01
 template<typename T>
 void partitionLinkedList(List<T>& list, const T& x) {
     List<T> less;
@@ -381,7 +381,23 @@ void minorsToCapitals(List<char>& list)
         last_char = *it;
         ++it;
     }
+}
 
+//task 03
+template<typename InputIt, typename T>
+bool binarySearch(InputIt first, InputIt last, const T& value) {
+    if constexpr (std::is_same_v<typename std::iterator_traits<InputIt>::iterator_category, std::random_access_iterator_tag>) {
+        return std::binary_search(first, last, value);
+    } else {
+        for (; first != last; ++first) {
+            if (*first == value) {
+                return true;
+            } else if (*first > value) {
+                return false;
+            }
+        }
+        return false;
+    }
 }
 
 int main()
@@ -393,7 +409,6 @@ int main()
     for (const auto& value : list) {
         std::cout << value << " ";
     }
-
     std::cout << std::endl;
 
     //task 02
@@ -403,6 +418,26 @@ int main()
     for ( auto it = chList.begin(); it != chList.end(); ++it)
     {
         std::cout << *it << " ";
+    }
+
+    std::cout << std::endl;
+
+    //task 03
+    std::vector<int> vec = {1, 2, 4, 4, 5};
+    List<int> lst = {1, 2, 3, 4, 5};
+
+    std::cout << "Using std::vector<T>: ";
+    if (binarySearch(vec.begin(), vec.end(), 4)) {
+        std::cout << "Element found " << std::endl;
+    } else {
+        std::cout << "Element not found " << std::endl;
+    }
+
+    std::cout << "Using List<T>: ";
+    if (binarySearch(lst.begin(), lst.end(), 4)) {
+        std::cout << "Element found " << std::endl;
+    } else {
+        std::cout << "Element not found " << std::endl;
     }
 
     return 0;
