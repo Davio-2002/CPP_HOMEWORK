@@ -120,7 +120,7 @@ public:
     bool empty() const { return size_ == 0; }
     std::size_t size() const { return size_; }
 
-iterator insert(iterator pos, const T &value) {
+    iterator insert(iterator pos, const T &value) {
         Node *node = new Node{value, nullptr, nullptr};
         if (pos.current == nullptr) {
             push_back(value);
@@ -245,7 +245,7 @@ iterator insert(iterator pos, const T &value) {
         --size_;
     }
 
-void splice(iterator pos, List& other) {
+    void splice(iterator pos, List& other) {
         if (other.empty()) {
             return;
         }
@@ -320,28 +320,33 @@ template<typename T>
 void partitionLinkedList(List<T>& list, const T& x) {
     List<T> less;
     List<T> greaterOrEqual;
+    List<T> single{ x };
 
 
     for (auto it = list.begin(); it != list.end();) {
         auto next = it;
         ++next;
-        if (*it <= x) {
-            less.push_back(*it);
-        } else {
-            greaterOrEqual.push_back(*it);
+        if ( *it != x )
+        {
+            if (*it < x ) {
+                less.push_back(*it);
+            } else {
+                greaterOrEqual.push_back(*it);
+            }
         }
+
         list.erase(it);
         it = next;
     }
 
-    less.splice(less.end(), greaterOrEqual);
+    less.splice(less.end(), single);
+    less.splice(single.begin(), greaterOrEqual);
     list = less;
 }
 
-
 int main()
 {
-    List<int> list { 3, 1, 6, 4, 2, 5 };
+    List<int> list { 6, -2, 5, 4, 0, 3 };
     partitionLinkedList(list, 4);
     for (const auto& value : list) {
         std::cout << value << " ";
