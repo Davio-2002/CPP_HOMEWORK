@@ -344,12 +344,62 @@ void partitionLinkedList(List<T>& list, const T& x) {
     list = less;
 }
 
+void minorsToCapitals(List<char>& list)
+{
+    auto it = list.begin();
+    auto it2 = list.begin();
+    bool mut = false;
+    char last_char = '\0';
+
+    while (true) {
+        if (it == list.end() && mut) {
+            it = list.erase(it2, it);
+            list.insert(it, static_cast<char>(last_char - ('a' - 'A')));
+            break;
+        }
+
+        if (it == list.end()) {
+            break;
+        }
+
+        if (*it != last_char) {
+            if (mut) {
+                it = list.erase(it2, it);
+                list.insert(it, static_cast<char>(last_char - ('a' - 'A')));
+                it2 = it;
+                mut = false;
+            } else {
+                it2 = it;
+            }
+        }
+
+        if (*it == last_char) {
+            mut = true;
+        }
+
+        last_char = *it;
+        ++it;
+    }
+
+}
+
 int main()
 {
     List<int> list { 6, -2, 5, 4, 0, 3 };
     partitionLinkedList(list, 4);
+
     for (const auto& value : list) {
         std::cout << value << " ";
     }
+    std::cout << std::endl;
+
+    List<char> chList { 'a', 'a', 'b', 'c', 'c', 'c' };
+    minorsToCapitals(chList);
+
+    for ( auto it = chList.begin(); it != chList.end(); ++it)
+    {
+        std::cout << *it << " ";
+    }
+
     return 0;
 }
