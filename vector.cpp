@@ -1,7 +1,6 @@
 #include <iostream>
 #include <climits>
 
-
 template <typename T>
 class Vector {
 private:
